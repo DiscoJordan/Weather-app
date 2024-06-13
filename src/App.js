@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [city, SetCity] = useState();
+  const [city, SetCity] = useState(undefined);
   const [temp, SetTemp] = useState(0);
 
   function success(pos) {
@@ -19,7 +19,7 @@ function App() {
 
   const gotWeather = async () => {
     try {
-      debugger
+     
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=8988d33759d408415270f13c41a0f52b`
       );
@@ -40,7 +40,7 @@ function App() {
     }
   }, [latitude,longitude]);
 
-  return (
+  return city? (
     <div className="App">
       <h1>
         latitude: {latitude}, longitude: {longitude}
@@ -49,7 +49,8 @@ function App() {
       <h1>City {city}</h1>
       <h1>Temperature:{temp.toFixed(1)}</h1>
     </div>
-  );
+  ):
+  (<h1>loading</h1>)
 }
 
 export default App;
